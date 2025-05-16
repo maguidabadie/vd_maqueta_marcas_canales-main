@@ -103,11 +103,15 @@
   <div class="header">
     
     <h3 class="headline">
-      <b>Los reyes del oro</b>
-      Medallas, participaciones y dominio en distintos continentes
+      <b>Fin de semana musical</b>
+      Cómo leer esta partitura del fin de semana de los jovenes     
     </h3>
     <p class="bajada">
-      Los atletas con más medallas olímpicas de oro en los Juegos Olímpicos
+      Este no es un pentagrama tradicional. Es una memoria codificada en música.
+      Cada nota es un joven entrevistado. ¿Que música escuchó? ¿Cuánto tiempo? ¿Qué estaba haciendo? ¿Cómo se sintió?
+      Para descifrar qué pasó, hay que observar con atención:
+
+      ¿Te animás a leer entre líneas?
     </p>
     <img
       class="referencias"
