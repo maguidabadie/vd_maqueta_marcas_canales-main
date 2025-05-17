@@ -1,9 +1,6 @@
 <script>
   import * as d3 from "d3"
   
-
-  
-
   function energiaToY(energia) {
     return 180 - (energia - 1) * 30;
   }
@@ -118,11 +115,11 @@
       <div class = 'notas'>
       <p><strong>Notas musicales:</strong></p>
       <ul>
-        <li><img src="/images/semicorchea.png" width="20" /> si la persona está entrenando</li>
-        <li><img src="/images/corchea.png" width="20" /> si la persona está en una fiesta</li>
-        <li><img src="/images/negra.png" width="20" /> si la persona está estudiando</li>
-        <li><img src="/images/blanca.png" width="20" /> si la persona está viajando</li>
-        <li><img src="/images/redonda.png" width="20" /> si la persona está en otra opción</li>
+        <li><img src="/images/semicorchea.png" width="20" /> estaba entrenando</li>
+        <li><img src="/images/corchea.png" width="20" /> estaba en una fiesta</li>
+        <li><img src="/images/negra.png" width="20" /> estaba estudiando</li>
+        <li><img src="/images/blanca.png" width="20" />  estaba viajando</li>
+        <li><img src="/images/redonda.png" width="20" />  estaba haciendo otra cosa</li>
       </ul>
       </div>
       
@@ -308,6 +305,7 @@
     justify-content: center; /* Centra horizontalmente el grid */
     align-content: center; 
     position: relative;
+    font-family: 'Karla', sans-serif;
    }
   .notas {
     grid-area: notas;
@@ -315,6 +313,10 @@
     font-weight: 300;
     margin: 10px;
     color: black;
+  }
+  .notas ul {
+  list-style: none;
+  padding-left: 0;
   }
   
   .generos {
@@ -366,6 +368,7 @@
     font-size: 24px;
     font-weight: 300;
     margin: 10px;
+    font-family: 'Karla', sans-serif;
   }
   .headline b {
     display: block;
@@ -401,13 +404,14 @@
   width: 100vw;
   background-color: white;
   
+  
 }
 
 .pin-wrap {
   height: 200px;
   width: 2200px; /* igual al ancho del SVG */
   will-change: transform;
-
+  
   animation: linear move forwards;
   animation-timeline: --section-pin-tl;
   animation-range: contain 0% contain 100%;
