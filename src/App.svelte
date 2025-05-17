@@ -107,18 +107,68 @@
       Cómo leer esta partitura del fin de semana de los jovenes     
     </h3>
     <p class="bajada">
-      Este no es un pentagrama tradicional. Es una memoria codificada en música.
-      Cada nota es un joven entrevistado. ¿Que música escuchó? ¿Cuánto tiempo? ¿Qué estaba haciendo? ¿Cómo se sintió?
-      Para descifrar qué pasó, hay que observar con atención:
+      Este no es un pentagrama tradicional. Es una memoria codificada en música. Cada nota es un joven entrevistado. <br />
+      ¿Que música escuchó? ¿Cuánto tiempo? ¿Qué estaba haciendo? ¿Cómo se sintió?<br />
+      Para descifrar qué pasó, hay que observar con atención: <br />
 
       ¿Te animás a leer entre líneas?
     </p>
-    <img
-      class="referencias"
-      src="/images/referencias.svg"
-      width="490"
-      alt="anillos"
-    />
+    </div>
+    <div class ="referencias">
+      <div class = 'notas'>
+      <p><strong>Notas musicales:</strong></p>
+      <ul>
+        <li><img src="/images/semicorchea.png" width="20" /> si la persona está entrenando</li>
+        <li><img src="/images/corchea.png" width="20" /> si la persona está en una fiesta</li>
+        <li><img src="/images/negra.png" width="20" /> si la persona está estudiando</li>
+        <li><img src="/images/blanca.png" width="20" /> si la persona está viajando</li>
+        <li><img src="/images/redonda.png" width="20" /> si la persona está en otra opción</li>
+      </ul>
+      </div>
+      
+      <div class = 'generos'>
+      <p><strong>Géneros musicales:</strong></p>
+      <ul>
+        <li style="color: red;">Rock</li>
+        <li style="color: blue;">Reggeaton</li>
+        <li style="color: green;">Cumbia</li>
+        <li style="color: purple;">Electronica</li>
+        <li style="color: orange;">Pop</li>
+        <li style="color: cyan;">Otro</li>
+      </ul>
+      </div>
+
+      <div class= 'minutos'>
+      <p><strong>Tiempo escuchado:</strong></p>
+      <ul>
+        <li style= " color : rgba(0, 0, 0, 0.3)"> 15 minutos</li>
+        <li style="color: rgba(0, 0, 0, 0.5)"> 30 minutos</li>
+        <li style="color : rgba(0, 0, 0, 0.7)"> 1 hora</li>
+        <li style="color : rgba(0, 0, 0, 0.9)"> 2 horas</li>
+        <li style="color : rgba(0, 0, 0, 1)"> 4 horas</li>
+      </ul>
+      </div>
+
+      <div class= 'energia'>
+      <p><strong>Cuanto le cambio el dia a la persona:</strong></p>
+      <ol>
+        <li> Primera linea</li>
+        <li> Segunda linea</li>
+        <li> Tercera linea</li>
+        <li> Cuarta linea</li>
+        <li> Quinta linea</li>
+      </ol>
+      </div>
+
+      <div class = 'dia'>
+      <p><strong>Dia de la semana:</strong></p>
+      <ul>
+        <li>Viernes</li>
+        <li>Sabado</li>
+        <li>Domingo</li>
+      </ul>
+      </div>
+    
   </div>
 
     <!-- Scroll horizontal Viernes  -->
@@ -240,6 +290,61 @@
 </main>
 
 <style>
+  .referencias {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    grid-template-areas:
+      "notas generos minutos "
+      "notas generos minutos "
+      " energia dia  ."
+      " energia dia .";
+     gap: 10px;
+     padding: 15px;
+    justify-content: center; /* Centra horizontalmente el grid */
+    align-content: center; 
+    position: relative;
+   }
+  .notas {
+    grid-area: notas;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 10px;
+    color: black;
+  }
+  
+  .generos {
+    grid-area: generos;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 10px;
+    color: black;
+  }
+  .minutos {
+    grid-area: minutos;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 10px;
+    color: black;
+  }
+  .energia {
+    grid-area: energia;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 10px;
+    color: black;
+  }
+  .dia {
+    grid-area: dia;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 10px;
+    color: black;
+  }
   .header {
     display: flex;
     justify-content: center;
@@ -260,7 +365,6 @@
   .bajada {
     font-size: 24px;
     font-weight: 300;
-    text-align: center;
     margin: 10px;
   }
   .headline b {
@@ -317,5 +421,8 @@
 #sectionPin3 .pin-wrap {
   animation-timeline: --section-pin-3;
 }
-
+svg {
+  display: block;
+  margin: 0 auto;
+}
 </style>
