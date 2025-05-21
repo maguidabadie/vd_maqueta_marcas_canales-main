@@ -115,11 +115,11 @@
       <div class = 'notas'>
       <p><strong>Notas musicales:</strong></p>
       <ul>
-        <li><img src="/images/semicorchea.png" width="20" /> estaba entrenando</li>
-        <li><img src="/images/corchea.png" width="20" /> estaba en una fiesta</li>
-        <li><img src="/images/negra.png" width="20" /> estaba estudiando</li>
-        <li><img src="/images/blanca.png" width="20" />  estaba viajando</li>
-        <li><img src="/images/redonda.png" width="20" />  estaba haciendo otra cosa</li>
+        <li><img src="/images/semicorchea2.svg" width="20" /> estaba entrenando</li>
+        <li><img src="/images/corchea2.svg" width="20" /> estaba en una fiesta</li>
+        <li><img src="/images/negra2.svg" width="20" /> estaba estudiando</li>
+        <li><img src="/images/blanca2.svg" width="20" />  estaba viajando</li>
+        <li><img src="/images/redonda2.svg" width="20" />  estaba haciendo otra cosa</li>
       </ul>
       </div>
       
