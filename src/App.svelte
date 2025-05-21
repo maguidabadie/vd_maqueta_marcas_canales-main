@@ -3,7 +3,7 @@
   
 
 
-  
+
   function energiaToY(energia) {
     return 180 - (energia - 1) * 30;
   }
@@ -192,15 +192,22 @@
             {/each}
             <!-- las notas -->
             {#each viernes as d, i}
-              <image
-                href={`/images/${d.actividad}.png`}
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}  
+            {#if d.actividad == "semicorchea"} 
+              <svg
                 width="100"
                 height="100"
-                style="color: {colorScale(d.genero)}"
-                opacity={brilloScale(d.minutos)}
-              />
+                x={80 + i * 80}
+                y={energiaToY(d.energia) - 50}
+                viewBox="0 0 86 180"
+                fill={colorScale(d.genero)}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d={notaEscala1(d.actividad)} fill={colorScale(d.genero)} />
+                <path
+                  d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935Z"
+                  fill="white"
+                />
+              </svg>
             {/each}
           </svg>
         </div>
