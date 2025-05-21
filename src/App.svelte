@@ -1,9 +1,6 @@
 <script>
   import * as d3 from "d3"
   
-
-
-
   function energiaToY(energia) {
     return 180 - (energia - 1) * 30;
   }
@@ -175,7 +172,7 @@
     <section id="sectionPin1">
       <div class="pin-wrap-sticky">
         <div class="pin-wrap">
-          <h2 class="headline">
+          <h2 class="pentagrama-titulo">
             <b>Viernes</b>
           </h2>
           <svg width="2200" height="200">
@@ -629,13 +626,15 @@
   width: 100vw;
   background-color: white;
   
-  
 }
 
 .pin-wrap {
-  height: 200px;
+  height: 100vh;
   width: 2200px; /* igual al ancho del SVG */
   will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
   animation: linear move forwards;
   animation-timeline: --section-pin-tl;
