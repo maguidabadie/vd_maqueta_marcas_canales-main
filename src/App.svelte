@@ -1,6 +1,9 @@
 <script>
   import * as d3 from "d3"
   
+
+
+  
   function energiaToY(energia) {
     return 180 - (energia - 1) * 30;
   }
