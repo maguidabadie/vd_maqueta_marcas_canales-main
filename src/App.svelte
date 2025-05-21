@@ -588,20 +588,24 @@
     margin-bottom: 80px;
   }
 
-  .headline {
-  top: 40px;
-  left: 40px; /* aparece al principio del pentagrama */
-  font-size: 40px;
-  color: black;
-  z-index: 10;
-  }
+.headline {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #222;
+}
 
-  .bajada {
-    font-size: 24px;
-    font-weight: 300;
-    margin: 10px;
-    font-family: 'Karla', sans-serif;
-  }
+.bajada {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 60px auto;
+  text-align: center;
+  color: #444;
+  font-family: 'Karla', sans-serif;
+}
   .headline b {
     display: block;
   }
