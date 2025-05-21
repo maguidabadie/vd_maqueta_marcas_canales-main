@@ -101,12 +101,16 @@
     
     <h3 class="headline">
       <b>Fin de semana musical</b>
-      Cómo leer esta partitura del fin de semana de los jovenes     
+      ¿Cómo leer esta partitura del fin de semana<br />
+      de los jovenes?  
     </h3>
     <p class="bajada">
-      Este no es un pentagrama tradicional. Es una memoria codificada en música. Cada nota es un joven entrevistado. <br />
-      ¿Que música escuchó? ¿Cuánto tiempo? ¿Qué estaba haciendo? ¿Cómo se sintió?<br />
-      Para descifrar qué pasó, hay que observar con atención: <br />
+      Este no es un pentagrama tradicional. 
+      Es una memoria codificada en música. <br />
+       Cada nota es un joven entrevistado. <br />
+      ¿Que música escuchó? ¿Cuánto tiempo? 
+      ¿Qué estaba haciendo? ¿Cómo se sintió?<br />
+      Para descifrar qué pasó, hay que observar con atención: 
 
       ¿Te animás a leer entre líneas?
     </p>
@@ -600,7 +604,7 @@
   font-size: 20px;
   font-weight: 300;
   line-height: 1.6;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto 60px auto;
   text-align: center;
   color: #444;
