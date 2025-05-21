@@ -172,9 +172,11 @@
     <section id="sectionPin1">
       <div class="pin-wrap-sticky">
         <div class="pin-wrap">
-          <h2 class="pentagrama-titulo">
-            <b>Viernes</b>
-          </h2>
+          <div class="pentagrama">
+            <h2 >
+              <b>Viernes</b>
+            </h2>
+            </div>
           <svg width="2200" height="200">
       
             <!-- Dibujar las 5 líneas del pentagrama -->
@@ -290,7 +292,11 @@
     <section id="sectionPin2">
       <div class="pin-wrap-sticky">
         <div class="pin-wrap">
-          <h2 class="pentagrama-titulo"><b>Sabado</b></h2>
+          <div class="pentagrama">
+            <h2 >
+              <b>Sabado</b>
+            </h2>
+            </div>
           <svg width="2200" height="200">
             <!-- líneas y notas del segundo pentagrama -->
             {#each Array(5) as _, i}
@@ -404,7 +410,11 @@
   <section id="sectionPin3">
     <div class="pin-wrap-sticky">
       <div class="pin-wrap">
-        <h2 class="pentagrama-titulo"><b>Domingo</b></h2>
+       <div class="pentagrama">
+            <h2 >
+              <b>Domingo
+            </h2>
+        </div>
         <svg width="2200" height="200">
           <!-- líneas y notas del segundo pentagrama -->
           {#each Array(5) as _, i}
@@ -652,5 +662,14 @@
 svg {
   display: block;
   margin: 0 auto;
+}
+.pentagrama{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  align-items: center
 }
 </style>
