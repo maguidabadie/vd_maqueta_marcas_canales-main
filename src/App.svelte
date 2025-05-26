@@ -94,7 +94,29 @@
     .domain([0.25, 4])  // mínimo y máximo de minutos
     .range([0.4, 1])    // de menos luminoso a totalmente visible
 
+
+let mostrarReferencias = false;
+  
+
+import { onMount, onDestroy } from "svelte";
+
+onMount(() => {
+  const cerrarConEscape = (e) => {
+    if (e.key === "Escape") {
+      mostrarReferencias = false;
+    }
+  };
+
+  window.addEventListener("keydown", cerrarConEscape);
+
+  onDestroy(() => {
+    window.removeEventListener("keydown", cerrarConEscape);
+  });
+});
+
 </script>
+
+
 
 <main>
   <div class="header">
@@ -115,62 +137,10 @@
       ¿Te animás a leer entre líneas?
     </p>
     </div>
-    <div class ="referencias">
-      <div class = 'notas'>
-      <p><strong>Notas musicales:</strong></p>
-      <ul>
-        <li><img src="/images/semicorchea2.svg" width="20" /> estaba entrenando</li>
-        <li><img src="/images/corchea2.svg" width="20" /> estaba en una fiesta</li>
-        <li><img src="/images/negra2.svg" width="20" /> estaba estudiando</li>
-        <li><img src="/images/blanca2.svg" width="20" />  estaba viajando</li>
-        <li><img src="/images/redonda2.svg" width="20" />  estaba haciendo otra cosa</li>
-      </ul>
-      </div>
-      
-      <div class = 'generos'>
-      <p><strong>Géneros musicales:</strong></p>
-      <ul>
-        <li style="color: red;">Rock</li>
-        <li style="color: blue;">Reggeaton</li>
-        <li style="color: green;">Cumbia</li>
-        <li style="color: purple;">Electronica</li>
-        <li style="color: orange;">Pop</li>
-        <li style="color: cyan;">Otro</li>
-      </ul>
-      </div>
+<div class="leyenda">
+  <img src="/images/Referencias.svg" alt="Leyenda explicativa de notas, géneros y días" />
+</div>
 
-      <div class= 'minutos'>
-      <p><strong>Tiempo escuchado:</strong></p>
-      <ul>
-        <li style= " color : rgba(0, 0, 0, 0.3)"> 15 minutos</li>
-        <li style="color: rgba(0, 0, 0, 0.5)"> 30 minutos</li>
-        <li style="color : rgba(0, 0, 0, 0.7)"> 1 hora</li>
-        <li style="color : rgba(0, 0, 0, 0.9)"> 2 horas</li>
-        <li style="color : rgba(0, 0, 0, 1)"> 4 horas</li>
-      </ul>
-      </div>
-
-      <div class= 'energia'>
-      <p><strong>Cuanto le cambio el dia a la persona:</strong></p>
-      <ol>
-        <li> Primera linea</li>
-        <li> Segunda linea</li>
-        <li> Tercera linea</li>
-        <li> Cuarta linea</li>
-        <li> Quinta linea</li>
-      </ol>
-      </div>
-
-      <div class = 'dia'>
-      <p><strong>Dia de la semana:</strong></p>
-      <ul>
-        <li>Viernes</li>
-        <li>Sabado</li>
-        <li>Domingo</li>
-      </ul>
-      </div>
-    
-  </div>
 
     <!-- Scroll horizontal Viernes  -->
     <section id="sectionPin1">
@@ -286,10 +256,12 @@
     </section>
 
     <!-- ENTRE PENTAGRAMAS -->
-    <section class="normal-scroll">
-      <h2>Transición</h2>
-      <p>Acá sigue el scroll vertical por un momento antes del próximo pentagrama.</p>
-    </section>
+
+<section class="transicion">
+  <h2>Continuá bajando</h2>
+  <p>Falta poco para el próximo pentagrama.</p>
+</section>
+
 
 
     <!-- Scroll horizontal Sabado  -->
@@ -404,9 +376,9 @@
   </section>
 
   <!-- ENTRE PENTAGRAMAS -->
-  <section class="normal-scroll">
-    <h2>Transición</h2>
-    <p>Acá sigue el scroll vertical por un momento antes del próximo pentagrama.</p>
+  <section class="transicion">
+     <h2>Últimas notas del fin de semana</h2>
+     <p>Queda una jornada por recorrer. ¿Qué se escuchó el domingo?</p>
   </section>
 
 
@@ -520,69 +492,81 @@
       </div>
     </div>
   </section>
+
+<!-- Botón flotante de ayuda -->
+<div class="boton-ayuda" on:click={() => mostrarReferencias = !mostrarReferencias} title="Ver ayuda">
+  ?
+</div>
+
+
+<!-- Leyenda modal centrada -->
+{#if mostrarReferencias}
+  <div class="overlay" on:click={() => mostrarReferencias = false}>
+    <div class="modal-leyenda" on:click|stopPropagation>
+      <img src="/images/Referencias.svg" alt="Leyenda explicativa de notas, géneros y días" />
+    </div>
+  </div>
+{/if}
 </main>
 
 <style>
-  .referencias {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    grid-template-areas:
-      "notas generos minutos "
-      "notas generos minutos "
-      " energia dia  ."
-      " energia dia .";
-     gap: 10px;
-     padding: 15px;
-    justify-content: center; /* Centra horizontalmente el grid */
-    align-content: center; 
-    position: relative;
-    font-family: 'Karla', sans-serif;
-   }
-  .notas {
-    grid-area: notas;
-    font-size: 20px;
-    font-weight: 300;
-    margin: 10px;
-    color: black;
+
+.headline {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #111;
+  line-height: 1.3;
+}
+
+.headline b {
+  font-size: 3rem;
+  color: #d43f3a; /* rojo suave para destacar */
+  display: block;
+}
+
+.bajada {
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 1.8;
+  max-width: 850px;
+  margin: 0 auto 2.5rem auto;
+  text-align: center;
+  color: #444;
+  padding: 0 1rem;
+}
+
+.leyenda {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fdfdda; /* igual que el fondo del SVG */
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  max-width: 95%;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.leyenda img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  .notas ul {
-  list-style: none;
-  padding-left: 0;
-  }
-  
-  .generos {
-    grid-area: generos;
-    font-size: 20px;
-    font-weight: 300;
-    margin: 10px;
-    color: black;
-  }
-  .minutos {
-    grid-area: minutos;
-    font-size: 20px;
-    font-weight: 300;
-    margin: 10px;
-    color: black;
-  }
-  .energia {
-    grid-area: energia;
-    font-size: 20px;
-    font-weight: 300;
-    margin: 10px;
-    color: black;
-  }
-  .dia {
-    grid-area: dia;
-    font-size: 20px;
-    font-weight: 300;
-    margin: 10px;
-    color: black;
-  }
+}
+
   .header {
     display: flex;
     justify-content: center;
@@ -592,27 +576,7 @@
     margin-bottom: 80px;
   }
 
-.headline {
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-align: center;
-  color: #222;
-}
 
-.bajada {
-  font-size: 20px;
-  font-weight: 300;
-  line-height: 1.6;
-  max-width: 1000px;
-  margin: 0 auto 60px auto;
-  text-align: center;
-  color: #444;
-  font-family: 'Karla', sans-serif;
-}
-  .headline b {
-    display: block;
-  }
 
   @keyframes move {
   to {
@@ -642,7 +606,7 @@
   top: 0;
   height: 100vh;
   width: 100vw;
-  background-color: white;
+  background-color: #cccccc;
   
 }
 
@@ -675,9 +639,9 @@ svg {
   position: absolute;
   top: 20px;
   left: 20px;
-  font-size: 24px;
   font-weight: bold;
-  color: black;
+  font-size: 1.6rem;
+  color: #d43f3a;
   align-items: center
 }
 </style>
