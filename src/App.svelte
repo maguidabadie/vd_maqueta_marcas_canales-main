@@ -95,11 +95,11 @@
     .range([0.4, 1])    // de menos luminoso a totalmente visible
 
 
-let mostrarReferencias = false;
+  let mostrarReferencias = false;
   
 
-import { onMount, onDestroy } from "svelte";
-let header;
+  import { onMount, onDestroy } from "svelte";
+  let header;
 
 onMount(() => {
   const cerrarConEscape = (e) => {
@@ -128,23 +128,25 @@ onMount(() => {
     window.removeEventListener("scroll", handleScroll);
   };
   });
-
-
-
 </script>
 
 
 
 <main>
   <!-- HEADER principal tipo web -->
-<header class="main-header" bind:this={header}>
-  <div class="logo"><span>🎵</span> DataSound</div>
-  <nav class="nav">
-    <a href="#sectionPin1">Viernes</a>
-    <a href="#sectionPin2">Sábado</a>
-    <a href="#sectionPin3">Domingo</a>
-  </nav>
-</header>
+  <header class="main-header" bind:this={header}>
+    <div class="logo-container">
+      <img src="/images/logo.svg" alt="Logo de CanalMix" class="logo-img" />
+      <span class="logo-text">CanalMix</span>
+    </div>
+    
+    <nav class="nav">
+      <a href="#sectionPin1" class="nav-link">Viernes</a>
+      <a href="#sectionPin2" class="nav-link">Sábado</a>
+      <a href="#sectionPin3" class="nav-link">Domingo</a>
+    </nav>
+  </header>
+
 
 
 
@@ -520,27 +522,24 @@ onMount(() => {
       </div>
     </div>
   </section>
-
-<!-- Botón flotante de ayuda -->
-<div class="boton-ayuda" on:click={() => mostrarReferencias = !mostrarReferencias} title="Ver ayuda">
-  ?
-</div>
-
-
-<!-- Leyenda modal centrada -->
-{#if mostrarReferencias}
-  <div class="overlay" on:click={() => mostrarReferencias = false}>
-    <div class="modal-leyenda" on:click|stopPropagation>
-      <img src="/images/Referencias.svg" alt="Leyenda explicativa de notas, géneros y días" />
-    </div>
+  
+  <div class="boton-ayuda" on:click={() => mostrarReferencias = !mostrarReferencias} title="Ver ayuda">
+    ?
   </div>
-{/if}
+
+  {#if mostrarReferencias}
+    <div class="overlay" on:click={() => mostrarReferencias = false}>
+      <div class="modal-leyenda" on:click|stopPropagation>
+        <img src="/images/Referencias.svg" alt="Leyenda explicativa de notas, géneros y días" />
+      </div>
+    </div>
+  {/if}
+
 </main>
 
+
 <style>
-
-
-/* INTRODUCCIÓN */
+  /* INTRODUCCIÓN */
 .intro {
   padding: 80px 20px 40px;
   text-align: center;
@@ -569,7 +568,6 @@ onMount(() => {
   font-weight: 600;
   color: #111;
 }
-
 
 .leyenda {
   display: flex;
@@ -601,14 +599,6 @@ onMount(() => {
   }
 }
 
-  .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 20px;
-    margin-bottom: 80px;
-  }
 
 
 
@@ -678,4 +668,33 @@ svg {
   color: #d43f3a;
   align-items: center
 }
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Más espacio entre logo y texto */
+}
+
+.logo-img {
+  width: 60px; /* Tamaño aumentado (antes era 40px) */
+  height: auto;
+  transition: transform 0.3s ease; /* Efecto hover opcional */
+}
+
+.logo-img:hover {
+  transform: scale(1.05); /* Efecto hover opcional */
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-style: italic; /* Esto añade la cursiva */
+  color: #333;
+  font-family: 'Georgia', 'Times New Roman', serif; /* Fuentes con itálicas más marcadas */
+  /* Manteniendo el resto de tus estilos... */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 </style>
+
+
