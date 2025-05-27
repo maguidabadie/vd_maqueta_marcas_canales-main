@@ -14,7 +14,7 @@ body {
 
 .transicion {
   text-align: center;
-  margin: 80px auto;
+  margin: 0px auto;
 }
 
 .transicion button {
@@ -48,7 +48,7 @@ body {
   position: fixed;
   bottom: 100px;
   right: 30px;
-  background-color: #fdfdda;
+  background-color: #dcdcdc;
   border: 2px solid #ccc;
   border-radius: 12px;
   padding: 12px;
@@ -104,7 +104,7 @@ body {
 
 
 .modal-leyenda {
-  background-color: #fdfdda;
+  background-color: #dcdcdc;
   border-radius: 16px;
   padding: 30px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -120,4 +120,76 @@ body {
   height: auto;
   border-radius: 12px;
 }
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background-color: #fffbea;
+  z-index: 9999;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  transition: padding 0.3s ease, font-size 0.3s ease;
+}
+
+.main-header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d43f3a;
+  transition: font-size 0.3s ease;
+}
+
+.main-header .logo span {
+  font-size: 1.2rem;
+  transition: font-size 0.3s ease;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+  transition: font-size 0.3s ease, padding 0.3s ease;
+}
+
+.nav a {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  transition: all 0.2s ease-in-out;
+  font-family: 'Karla', sans-serif;
+  border: 2px solid transparent;
+}
+
+.nav a:hover {
+  background-color: #d43f3a;
+  color: white;
+  border-color: #d43f3a;
+}
+
+/* 🪄 ESTADO REDUCIDO AL HACER SCROLL */
+.main-header.shrink {
+  padding: 8px 24px;
+}
+
+.main-header.shrink .logo {
+  font-size: 1.2rem;
+}
+
+.main-header.shrink .logo span {
+  font-size: 1rem;
+}
+
+.main-header.shrink .nav a {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+}
+
+
 

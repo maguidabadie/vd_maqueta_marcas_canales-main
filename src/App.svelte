@@ -99,6 +99,7 @@ let mostrarReferencias = false;
   
 
 import { onMount, onDestroy } from "svelte";
+let header;
 
 onMount(() => {
   const cerrarConEscape = (e) => {
@@ -112,31 +113,58 @@ onMount(() => {
   onDestroy(() => {
     window.removeEventListener("keydown", cerrarConEscape);
   });
-});
+
+    const handleScroll = () => {
+      if (window.scrollY > 60) {
+        header.classList.add("shrink");
+      } else {
+        header.classList.remove("shrink");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+  });
+
+
 
 </script>
 
 
 
 <main>
-  <div class="header">
-    
-    <h3 class="headline">
-      <b>Fin de semana musical</b>
-      ¿Cómo leer esta partitura del fin de semana<br />
-      de los jovenes?  
-    </h3>
-    <p class="bajada">
-      Este no es un pentagrama tradicional. 
-      Es una memoria codificada en música. <br />
-       Cada nota es un joven entrevistado. <br />
-      ¿Que música escuchó? ¿Cuánto tiempo? 
-      ¿Qué estaba haciendo? ¿Cómo se sintió?<br />
-      Para descifrar qué pasó, hay que observar con atención: 
+  <!-- HEADER principal tipo web -->
+<header class="main-header" bind:this={header}>
+  <div class="logo"><span>🎵</span> DataSound</div>
+  <nav class="nav">
+    <a href="#sectionPin1">Viernes</a>
+    <a href="#sectionPin2">Sábado</a>
+    <a href="#sectionPin3">Domingo</a>
+  </nav>
+</header>
 
-      ¿Te animás a leer entre líneas?
-    </p>
-    </div>
+
+
+
+<!-- PRESENTACIÓN de la visualización -->
+  <section class="intro">
+  <h1 class="titulo-principal">
+    <span>Fin de semana musical</span>
+  </h1>
+  <p class="subtitulo">
+    Este no es un pentagrama tradicional.<br />
+    Es una memoria codificada en música.<br />
+    Cada nota es un joven entrevistado:<br />
+    ¿Qué música escuchó? ¿Cuánto tiempo?<br />
+    ¿Qué estaba haciendo? ¿Cómo se sintió?<br />
+    Para descifrar qué pasó, hay que observar con atención.<br />
+    <strong>¿Te animás a leer entre líneas?</strong>
+  </p>
+  </section>
+
 <div class="leyenda">
   <img src="/images/Referencias.svg" alt="Leyenda explicativa de notas, géneros y días" />
 </div>
@@ -160,7 +188,7 @@ onMount(() => {
                 y1={180 - i * 30} 
                 x2="2100" 
                 y2={180 - i * 30} 
-                stroke="black" 
+                stroke="rgba(0, 0, 0, 0.4)"
                 stroke-width="2" />
             {/each}
             <!-- las notas -->
@@ -281,7 +309,7 @@ onMount(() => {
                 y1={180 - i * 30} 
                 x2="2100" 
                 y2={180 - i * 30} 
-                stroke="black" 
+                stroke="rgba(0, 0, 0, 0.4)"
                 stroke-width="2" />
             {/each}
             <!-- Dibujar las notas como imágenes -->
@@ -399,7 +427,7 @@ onMount(() => {
               y1={180 - i * 30} 
               x2="2100" 
               y2={180 - i * 30} 
-              stroke="black" 
+              stroke="rgba(0, 0, 0, 0.4)"
               stroke-width="2" />
           {/each}
           <!-- Dibujar las notas como imágenes -->
@@ -511,31 +539,37 @@ onMount(() => {
 
 <style>
 
-.headline {
-  font-size: 2.8rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
+
+/* INTRODUCCIÓN */
+.intro {
+  padding: 80px 20px 40px;
   text-align: center;
-  color: #111;
-  line-height: 1.3;
+  margin-top: 100px;
+
 }
 
-.headline b {
+.titulo-principal {
   font-size: 3rem;
-  color: #d43f3a; /* rojo suave para destacar */
-  display: block;
+  font-weight: 800;
+  color: #d43f3a;
+  font-family: 'Karla', sans-serif;
+  margin-bottom: 20px;
 }
 
-.bajada {
+.subtitulo {
   font-size: 1.2rem;
   font-weight: 300;
   line-height: 1.8;
   max-width: 850px;
-  margin: 0 auto 2.5rem auto;
-  text-align: center;
+  margin: 0 auto;
   color: #444;
-  padding: 0 1rem;
 }
+
+.subtitulo strong {
+  font-weight: 600;
+  color: #111;
+}
+
 
 .leyenda {
   display: flex;
@@ -543,7 +577,7 @@ onMount(() => {
   align-items: center;
   margin: 40px auto;
   padding: 30px;
-  background-color: #fdfdda; /* igual que el fondo del SVG */
+  background-color: #dcdcdc; /* igual que el fondo del SVG */
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   max-width: 95%;
@@ -607,7 +641,7 @@ onMount(() => {
   height: 100vh;
   width: 100vw;
   background-color: #cccccc;
-  
+  margin-bottom: 0px; /* o algo chico como 20px si querés espacio mínimo */
 }
 
 .pin-wrap {
