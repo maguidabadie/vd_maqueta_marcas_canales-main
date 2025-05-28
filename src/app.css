@@ -124,20 +124,22 @@ body {
 
 /* ESTILOS BASE DEL HEADER */
 .main-header {
+  background-color: #fffbea;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #fffbea;
   z-index: 1000;
   padding: 1.5rem 3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-  will-change: transform, padding, box-shadow;
+  transition:
+    background-color 0.4s ease,
+    padding 0.4s ease,
+    box-shadow 0.4s ease,
+    backdrop-filter 0.4s ease;
+
 }
 
 /* ESTILOS DEL BOTÓN DEL LOGO (ACCESIBLE) */
@@ -253,10 +255,11 @@ body {
 
 /* ESTADO SHRINK (SCROLL) */
 .main-header.shrink {
-  padding: 0.8rem 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(5px);
-  background-color: rgba(255, 251, 234, 0.95);
+  padding: 0.5rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .main-header.shrink .logo-img {
@@ -302,6 +305,7 @@ body {
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 }
+
 
 
 

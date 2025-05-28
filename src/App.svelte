@@ -101,18 +101,12 @@
   import { onMount, onDestroy } from "svelte";
   let header;
 
-onMount(() => {
-  const cerrarConEscape = (e) => {
-    if (e.key === "Escape") {
-      mostrarReferencias = false;
-    }
-  };
-
-  window.addEventListener("keydown", cerrarConEscape);
-
-  onDestroy(() => {
-    window.removeEventListener("keydown", cerrarConEscape);
-  });
+  onMount(() => {
+    const cerrarConEscape = (e) => {
+      if (e.key === "Escape") {
+        mostrarReferencias = false;
+      }
+    };
 
     const handleScroll = () => {
       if (window.scrollY > 60) {
@@ -122,11 +116,13 @@ onMount(() => {
       }
     };
 
+    window.addEventListener("keydown", cerrarConEscape);
     window.addEventListener("scroll", handleScroll);
 
-    return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
+    onDestroy(() => {
+      window.removeEventListener("keydown", cerrarConEscape);
+      window.removeEventListener("scroll", handleScroll);
+    });
   });
 </script>
 
@@ -695,6 +691,7 @@ svg {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
 </style>
 
 
