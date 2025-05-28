@@ -96,7 +96,8 @@
 
 
   let mostrarReferencias = false;
-  
+  let menuAbierto = false;
+
 
   import { onMount, onDestroy } from "svelte";
   let header;
@@ -108,20 +109,10 @@
       }
     };
 
-    const handleScroll = () => {
-      if (window.scrollY > 60) {
-        header.classList.add("shrink");
-      } else {
-        header.classList.remove("shrink");
-      }
-    };
-
     window.addEventListener("keydown", cerrarConEscape);
-    window.addEventListener("scroll", handleScroll);
 
     onDestroy(() => {
       window.removeEventListener("keydown", cerrarConEscape);
-      window.removeEventListener("scroll", handleScroll);
     });
   });
 </script>
@@ -519,17 +510,35 @@
     </div>
   </section>
   
-  <div class="boton-ayuda" on:click={() => mostrarReferencias = !mostrarReferencias} title="Ver ayuda">
-    ?
-  </div>
+<!-- BOTÓN flotante de ayuda -->
+<div class="boton-ayuda" on:click={() => mostrarReferencias = !mostrarReferencias} title="Ver ayuda">
+  ?
+</div>
 
-  {#if mostrarReferencias}
-    <div class="overlay" on:click={() => mostrarReferencias = false}>
-      <div class="modal-leyenda" on:click|stopPropagation>
-        <img src="/images/Referencias.svg" alt="Leyenda explicativa de notas, géneros y días" />
-      </div>
+<!-- MODAL de referencias -->
+{#if mostrarReferencias}
+  <div class="overlay" on:click={() => mostrarReferencias = false}>
+    <div class="modal-leyenda" on:click|stopPropagation>
+      <img src="/images/Referencias.svg" alt="Leyenda explicativa de notas, géneros y días" />
     </div>
-  {/if}
+  </div>
+{/if}
+
+  <!-- Botón flotante para menú -->
+<div class="boton-menu" on:click={() => menuAbierto = !menuAbierto} title="Navegar días">
+  ☰
+</div>
+
+<!-- Botones de días -->
+{#if menuAbierto}
+  <div class="contenedor-menu-dias">
+      <a href="#sectionPin1" class="nav-link" on:click={() => menuAbierto = false}>Viernes</a>
+      <a href="#sectionPin2" class="nav-link" on:click={() => menuAbierto = false}>Sábado</a>
+      <a href="#sectionPin3" class="nav-link" on:click={() => menuAbierto = false}>Domingo</a>
+  </div>
+{/if}
+
+
 
 </main>
 
