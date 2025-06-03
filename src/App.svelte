@@ -2,7 +2,7 @@
   import * as d3 from "d3"
   
   function energiaToY(energia) {
-    return 180 - (energia - 1) * 30;
+    return 260 - (energia - 1) * 50;
   }
 
   let viernes = [
@@ -89,11 +89,19 @@
     .domain(["Rock", "Reggeaton", "Cumbia", "Electronica", "Pop", "Otro"])
     .range(["red", "blue", "green", "purple", "orange", "cyan"]); 
 
-  // Escala de luminosidad (minutos escuchados)
+ 
+  // Escala de brillo (cuantitativa)
   const brilloScale = d3.scaleLinear()
-    .domain([0.25, 4])  // mínimo y máximo de minutos
-    .range([0.4, 1])    // de menos luminoso a totalmente visible
+    .domain([0.25, 4]) // minutos escuchados
+    .range([80, 30]); // claro → oscuro
 
+  // Combinar las dos escalas: género + minutos
+  function colorFinal(genero, minutos) {
+    const baseColor = d3.color(colorScale(genero));
+    const hsl = d3.hsl(baseColor); // convierte a HSL
+    hsl.l = brilloScale(minutos) / 100; // ajustar brillo
+    return hsl.formatHsl(); // devuelve string "hsl(H, S%, L%)"
+  }
 
   let mostrarReferencias = false;
   let menuAbierto = false;
@@ -168,15 +176,15 @@
               <b>Viernes</b>
             </h2>
             </div>
-          <svg width="2200" height="200">
+          <svg width="2500" height="300">
       
             <!-- Dibujar las 5 líneas del pentagrama -->
             {#each Array(5) as _, i}
               <line 
                 x1="0" 
-                y1={180 - i * 30} 
-                x2="2100" 
-                y2={180 - i * 30} 
+                y1={260 - i * 50} 
+                x2="2900" 
+                y2={260 - i * 50} 
                 stroke="rgba(0, 0, 0, 0.4)"
                 stroke-width="2" />
             {/each}
@@ -184,83 +192,78 @@
             {#each viernes as d, i}
             {#if d.actividad == "semicorchea"} 
               <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
                 viewBox="0 0 86 164" 
-                fill={colorScale(d.genero)}
+                fill={colorFinal(d.genero, d.minutos)}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M58 0C64.0995 18.1847 85.7828 21.2927 81.4248 45.4434C87.2557 53.528 88.6326 61.5868 78.8291 76C88.9412 49.3738 78.0588 46.0018 58 34.209V88H56V0H58ZM58.3447 16.5859C65.6117 28.9565 74.4233 36.5251 80.1182 43.7168C79.4262 36.8479 78.9017 26.9955 58.3447 16.5859Z" 
-                fill={colorScale(d.genero)} />
+                fill={colorFinal(d.genero, d.minutos)} />
                 <path
                   d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935Z"
-                  fill={colorScale(d.genero)}
+                  fill={colorFinal(d.genero, d.minutos)}
                 />
               </svg>
              
             {:else if d.actividad == "corchea"}
               <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
-                viewBox="0 0 86 164" fill={colorScale(d.genero)} xmlns="http://www.w3.org/2000/svg">
-                <path d="M58 0C74.0585 27.8643 98.1481 31.597 78.8291 60C88.9412 33.3738 78.0588 30.0018 58 18.209V88H56V0H58Z" fill={colorScale(d.genero)} />
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
+                viewBox="0 0 86 164" fill={colorFinal(d.genero, d.minutos)} xmlns="http://www.w3.org/2000/svg">
+                <path d="M58 0C74.0585 27.8643 98.1481 31.597 78.8291 60C88.9412 33.3738 78.0588 30.0018 58 18.209V88H56V0H58Z" fill={colorFinal(d.genero, d.minutos)} />
                 <path 
                 d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935Z" 
-                fill={colorScale(d.genero)}/>
+                fill={colorFinal(d.genero, d.minutos)}/>
               </svg>
       
             {:else if d.actividad == "negra"}
               <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
                 viewBox="0 0 86 180"
-                fill={colorScale(d.genero)}
+                fill={colorFinal(d.genero, d.minutos)}
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path d="M58 0H56V88H58V0Z" fill={colorScale(d.genero)} />
+                <path d="M58 0H56V88H58V0Z" fill={colorFinal(d.genero, d.minutos)} />
                 <path
                   d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935Z"                   
-                  fill={colorScale(d.genero)}
+                  fill={colorFinal(d.genero, d.minutos)}
                 />
               </svg>
               
             {:else if d.actividad == "blanca"}
             <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
-                viewBox="0 0 86 164" fill={colorScale(d.genero)} xmlns="http://www.w3.org/2000/svg">
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
+                viewBox="0 0 86 164" fill={colorFinal(d.genero, d.minutos)} xmlns="http://www.w3.org/2000/svg">
               
-                <path path d="M58 0H56V88H58V0Z" fill={colorScale(d.genero)} />
+                <path path d="M58 0H56V88H58V0Z" fill={colorFinal(d.genero, d.minutos)} />
                 <path
                   d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935ZM55.417 83.1949C54.0312 81.0104 46.9762 82.2119 39.6694 85.9254C39.5434 85.9254 39.5434 86.0346 39.4174 86.0346C39.2914 86.0346 39.1654 86.1438 39.1654 86.1438C31.9845 89.8573 27.3233 94.5537 28.835 96.6289C30.2208 98.8133 37.2757 97.6119 44.5826 93.8984C44.7086 93.8984 44.7086 93.7892 44.8346 93.7892L44.9606 93.68C52.1415 90.0757 56.8027 85.3793 55.417 83.1949V83.1949Z" 
-                  fill={colorScale(d.genero)}/>
+                  fill={colorFinal(d.genero, d.minutos)}/>
               </svg>
               
             {:else if d.actividad == "redonda"}
             <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
                 viewBox="0 0 86 164"
-                fill={colorScale(d.genero)}
+                fill={colorFinal(d.genero, d.minutos)}
                 xmlns="http://www.w3.org/2000/svg"              >
                 <path
                   d="M32.0974 100.514C26.4533 98.8054 22 94.1609 22 89.9836C22 78.1601 47.8128 73.4812 58.4729 83.3725C70.0004 94.0687 51.188 106.295 32.0974 100.514H32.0974ZM49.3147 97.5442C52.4551 92.8287 49.4526 83.486 44.0131 81.0476C36.025 77.4667 31.1285 83.5689 34.4555 92.9586C36.7567 99.4532 46.1191 102.343 49.3147 97.5442Z"           
-                  fill={colorScale(d.genero)}
+                  fill={colorFinal(d.genero, d.minutos)}
                 />
               </svg>
               
@@ -290,14 +293,14 @@
               <b>Sabado</b>
             </h2>
             </div>
-          <svg width="2200" height="200">
+          <svg width="2500" height="300">
             <!-- líneas y notas del segundo pentagrama -->
             {#each Array(5) as _, i}
               <line 
                 x1="0" 
-                y1={180 - i * 30} 
-                x2="2100" 
-                y2={180 - i * 30} 
+                y1={260 - i * 50} 
+                x2="2900" 
+                y2={260 - i * 50} 
                 stroke="rgba(0, 0, 0, 0.4)"
                 stroke-width="2" />
             {/each}
@@ -305,83 +308,78 @@
             {#each sabado as d, i}
                {#if d.actividad == "semicorchea"} 
               <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
                 viewBox="0 0 86 164" 
-                fill={colorScale(d.genero)}
+                fill={colorFinal(d.genero, d.minutos)}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M58 0C64.0995 18.1847 85.7828 21.2927 81.4248 45.4434C87.2557 53.528 88.6326 61.5868 78.8291 76C88.9412 49.3738 78.0588 46.0018 58 34.209V88H56V0H58ZM58.3447 16.5859C65.6117 28.9565 74.4233 36.5251 80.1182 43.7168C79.4262 36.8479 78.9017 26.9955 58.3447 16.5859Z" 
-                fill={colorScale(d.genero)} />
+                fill={colorFinal(d.genero, d.minutos)} />
                 <path
                   d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935Z"
-                  fill={colorScale(d.genero)}
+                  fill={colorFinal(d.genero, d.minutos)}
                 />
               </svg>
              
             {:else if d.actividad == "corchea"}
               <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
-                viewBox="0 0 86 164" fill={colorScale(d.genero)} xmlns="http://www.w3.org/2000/svg">
-                <path d="M58 0C74.0585 27.8643 98.1481 31.597 78.8291 60C88.9412 33.3738 78.0588 30.0018 58 18.209V88H56V0H58Z" fill={colorScale(d.genero)} />
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
+                viewBox="0 0 86 164" fill={colorFinal(d.genero, d.minutos)} xmlns="http://www.w3.org/2000/svg">
+                <path d="M58 0C74.0585 27.8643 98.1481 31.597 78.8291 60C88.9412 33.3738 78.0588 30.0018 58 18.209V88H56V0H58Z" fill={colorFinal(d.genero, d.minutos)} />
                 <path 
                 d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935Z" 
-                fill={colorScale(d.genero)}/>
+                fill={colorFinal(d.genero, d.minutos)}/>
               </svg>
       
             {:else if d.actividad == "negra"}
               <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
                 viewBox="0 0 86 180"
-                fill={colorScale(d.genero)}
+                fill={colorFinal(d.genero, d.minutos)}
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path d="M58 0H56V88H58V0Z" fill={colorScale(d.genero)} />
+                <path d="M58 0H56V88H58V0Z" fill={colorFinal(d.genero, d.minutos)} />
                 <path
                   d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935Z"                   
-                  fill={colorScale(d.genero)}
+                  fill={colorFinal(d.genero, d.minutos)}
                 />
               </svg>
               
             {:else if d.actividad == "blanca"}
             <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
-                viewBox="0 0 86 164" fill={colorScale(d.genero)} xmlns="http://www.w3.org/2000/svg">
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
+                viewBox="0 0 86 164" fill={colorFinal(d.genero, d.minutos)} xmlns="http://www.w3.org/2000/svg">
               
-                <path path d="M58 0H56V88H58V0Z" fill={colorScale(d.genero)} />
+                <path path d="M58 0H56V88H58V0Z" fill={colorFinal(d.genero, d.minutos)} />
                 <path
                   d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935ZM55.417 83.1949C54.0312 81.0104 46.9762 82.2119 39.6694 85.9254C39.5434 85.9254 39.5434 86.0346 39.4174 86.0346C39.2914 86.0346 39.1654 86.1438 39.1654 86.1438C31.9845 89.8573 27.3233 94.5537 28.835 96.6289C30.2208 98.8133 37.2757 97.6119 44.5826 93.8984C44.7086 93.8984 44.7086 93.7892 44.8346 93.7892L44.9606 93.68C52.1415 90.0757 56.8027 85.3793 55.417 83.1949V83.1949Z" 
-                  fill={colorScale(d.genero)}/>
+                  fill={colorFinal(d.genero, d.minutos)}/>
               </svg>
               
             {:else if d.actividad == "redonda"}
             <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
                 viewBox="0 0 86 164"
-                fill={colorScale(d.genero)}
+                ffill={colorFinal(d.genero, d.minutos)}
                 xmlns="http://www.w3.org/2000/svg"              >
                 <path
                   d="M32.0974 100.514C26.4533 98.8054 22 94.1609 22 89.9836C22 78.1601 47.8128 73.4812 58.4729 83.3725C70.0004 94.0687 51.188 106.295 32.0974 100.514H32.0974ZM49.3147 97.5442C52.4551 92.8287 49.4526 83.486 44.0131 81.0476C36.025 77.4667 31.1285 83.5689 34.4555 92.9586C36.7567 99.4532 46.1191 102.343 49.3147 97.5442Z"           
-                  fill={colorScale(d.genero)}
+                  fill={colorFinal(d.genero, d.minutos)}
                 />
               </svg>
               
@@ -408,98 +406,93 @@
               <b>Domingo
             </h2>
         </div>
-        <svg width="2200" height="200">
+        <svg width="2500" height="300">
           <!-- líneas y notas del segundo pentagrama -->
           {#each Array(5) as _, i}
-            <line 
-              x1="0" 
-              y1={180 - i * 30} 
-              x2="2100" 
-              y2={180 - i * 30} 
-              stroke="rgba(0, 0, 0, 0.4)"
-              stroke-width="2" />
-          {/each}
+              <line 
+                x1="0" 
+                y1={260 - i * 50} 
+                x2="2900" 
+                y2={260 - i * 50} 
+                stroke="rgba(0, 0, 0, 0.4)"
+                stroke-width="2" />
+            {/each}
           <!-- Dibujar las notas como imágenes -->
           {#each domingo as d, i}
              {#if d.actividad == "semicorchea"} 
               <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
                 viewBox="0 0 86 164" 
-                fill={colorScale(d.genero)}
+                fill={colorFinal(d.genero, d.minutos)}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M58 0C64.0995 18.1847 85.7828 21.2927 81.4248 45.4434C87.2557 53.528 88.6326 61.5868 78.8291 76C88.9412 49.3738 78.0588 46.0018 58 34.209V88H56V0H58ZM58.3447 16.5859C65.6117 28.9565 74.4233 36.5251 80.1182 43.7168C79.4262 36.8479 78.9017 26.9955 58.3447 16.5859Z" 
-                fill={colorScale(d.genero)} />
+                fill={colorFinal(d.genero, d.minutos)} />
                 <path
                   d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935Z"
-                  fill={colorScale(d.genero)}
+                  fill={colorFinal(d.genero, d.minutos)}
                 />
               </svg>
              
             {:else if d.actividad == "corchea"}
               <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
-                viewBox="0 0 86 164" fill={colorScale(d.genero)} xmlns="http://www.w3.org/2000/svg">
-                <path d="M58 0C74.0585 27.8643 98.1481 31.597 78.8291 60C88.9412 33.3738 78.0588 30.0018 58 18.209V88H56V0H58Z" fill={colorScale(d.genero)} />
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
+                viewBox="0 0 86 164" fill={colorFinal(d.genero, d.minutos)} xmlns="http://www.w3.org/2000/svg">
+                <path d="M58 0C74.0585 27.8643 98.1481 31.597 78.8291 60C88.9412 33.3738 78.0588 30.0018 58 18.209V88H56V0H58Z" fill={colorFinal(d.genero, d.minutos)} />
                 <path 
                 d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935Z" 
-                fill={colorScale(d.genero)}/>
+                fill={colorFinal(d.genero, d.minutos)}/>
               </svg>
       
             {:else if d.actividad == "negra"}
               <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
                 viewBox="0 0 86 180"
-                fill={colorScale(d.genero)}
+                fill={colorFinal(d.genero, d.minutos)}
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path d="M58 0H56V88H58V0Z" fill={colorScale(d.genero)} />
+                <path d="M58 0H56V88H58V0Z" fill={colorFinal(d.genero, d.minutos)} />
                 <path
                   d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935Z"                   
-                  fill={colorScale(d.genero)}
+                  fill={colorFinal(d.genero, d.minutos)}
                 />
               </svg>
               
             {:else if d.actividad == "blanca"}
             <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
-                viewBox="0 0 86 164" fill={colorScale(d.genero)} xmlns="http://www.w3.org/2000/svg">
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
+                viewBox="0 0 86 164" fill={colorFinal(d.genero, d.minutos)} xmlns="http://www.w3.org/2000/svg">
               
-                <path path d="M58 0H56V88H58V0Z" fill={colorScale(d.genero)} />
+                <path path d="M58 0H56V88H58V0Z" fill={colorFinal(d.genero, d.minutos)} />
                 <path
                   d="M27.3233 97.3935C23.7958 92.1509 27.5752 84.6147 35.638 80.5736C43.7007 76.5324 53.1493 77.297 56.6768 82.5395C60.2042 87.7821 56.4248 95.3183 48.362 99.4687C40.2993 103.51 30.8507 102.636 27.3233 97.3935V97.3935ZM55.417 83.1949C54.0312 81.0104 46.9762 82.2119 39.6694 85.9254C39.5434 85.9254 39.5434 86.0346 39.4174 86.0346C39.2914 86.0346 39.1654 86.1438 39.1654 86.1438C31.9845 89.8573 27.3233 94.5537 28.835 96.6289C30.2208 98.8133 37.2757 97.6119 44.5826 93.8984C44.7086 93.8984 44.7086 93.7892 44.8346 93.7892L44.9606 93.68C52.1415 90.0757 56.8027 85.3793 55.417 83.1949V83.1949Z" 
-                  fill={colorScale(d.genero)}/>
+                  fill={colorFinal(d.genero, d.minutos)}/>
               </svg>
               
             {:else if d.actividad == "redonda"}
             <svg
-                width="100"
-                height="100"
-                x={80 + i * 80}
-                y={energiaToY(d.energia) - 50}
-                opacity={brilloScale(d.minutos)}
+                width="130"
+                height="130"
+                x={100 + i * 100}
+                y={energiaToY(d.energia) - 65}
                 viewBox="0 0 86 164"
-                fill={colorScale(d.genero)}
+                fill={colorFinal(d.genero, d.minutos)}
                 xmlns="http://www.w3.org/2000/svg"              >
                 <path
                   d="M32.0974 100.514C26.4533 98.8054 22 94.1609 22 89.9836C22 78.1601 47.8128 73.4812 58.4729 83.3725C70.0004 94.0687 51.188 106.295 32.0974 100.514H32.0974ZM49.3147 97.5442C52.4551 92.8287 49.4526 83.486 44.0131 81.0476C36.025 77.4667 31.1285 83.5689 34.4555 92.9586C36.7567 99.4532 46.1191 102.343 49.3147 97.5442Z"           
-                  fill={colorScale(d.genero)}
+                  fill={colorFinal(d.genero, d.minutos)}
                 />
               </svg>
               
@@ -636,12 +629,12 @@
   height: 100vh;
   width: 100vw;
   background-color: #cccccc;
-  margin-bottom: 0px; /* o algo chico como 20px si querés espacio mínimo */
+  margin-bottom: 0px; 
 }
 
 .pin-wrap {
   height: 100vh;
-  width: 2200px; /* igual al ancho del SVG */
+  width: 2900px; /* igual al ancho del SVG */
   will-change: transform;
   display: flex;
   align-items: center;
