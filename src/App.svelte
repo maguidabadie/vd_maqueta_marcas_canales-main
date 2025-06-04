@@ -277,10 +277,9 @@
 
     <!-- ENTRE PENTAGRAMAS -->
 
-<section class="transicion">
-  <h2>Continuá bajando</h2>
-  <p>Falta poco para el próximo pentagrama.</p>
-</section>
+      <section class="transicion">
+        <i class="fa-solid fa-arrow-down fa-3x"></i>
+      </section>
 
 
 
@@ -391,10 +390,9 @@
   </section>
 
   <!-- ENTRE PENTAGRAMAS -->
-  <section class="transicion">
-     <h2>Últimas notas del fin de semana</h2>
-     <p>Queda una jornada por recorrer. ¿Qué se escuchó el domingo?</p>
-  </section>
+    <section class="transicion">
+      <i class="fa-solid fa-arrow-down fa-3x"></i>
+    </section>
 
 
   <!-- Scroll horizontal Domingo -->
@@ -573,7 +571,7 @@
   align-items: center;
   margin: 40px auto;
   padding: 30px;
-  background-color: #dcdcdc; /* igual que el fondo del SVG */
+  background-color: #888888; /* igual que el fondo del SVG */
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   max-width: 95%;
